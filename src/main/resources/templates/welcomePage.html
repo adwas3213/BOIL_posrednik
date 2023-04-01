@@ -9,7 +9,7 @@
     <script src="script.js"></script>
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: lightblue;
             font-family: Arial, sans-serif;
         }
 
@@ -17,7 +17,7 @@
             max-width: 80%;
             margin: 0 auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: lightgray;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -34,39 +34,45 @@
 </head>
 <body>
 <div class="container">
-    <form>
+    <form th:action="@{/insertData}" method="post">
         <div class="form-group">
-            <label for="dostawcy">Liczba dostawców:</label>
-            <input type="number" class="form-control" id="dostawcy" name="dostawcy" min="1">
+            <label for="suppliers">Liczba dostawców:</label>
+            <input type="number" class="form-control" id="suppliers" name="suppliers" min="1">
         </div>
         <div class="form-group">
-            <label for="odbiorcy">Liczba odbiorców:</label>
-            <input type="number" class="form-control" id="odbiorcy" name="odbiorcy" min="1">
+            <label for="receiver">Liczba odbiorców:</label>
+            <input type="number" class="form-control" id="receiver" name="receiver" min="1">
         </div>
         <div class="form-group">
-            <label for="podaż">Podaż od dostawców:</label>
-            <input type="text" class="form-control" id="podaż" name="podaż" placeholder="np. 20, 30">
+            <label for="suplier-vector">Podaż od dostawców:</label>
+            <div class="row" id="suplier-vector">
+            </div>
+<!--            <input type="text" class="form-control" id="podaż" name="podaż" placeholder="np. 20, 30">-->
+        </div>
+        <div>
+            <label for="receiver-vector">Popyt od odbiorców:</label>
+            <div class="row" id="receiver-vector"></div>
+<!--            <input type="text" class="form-control" id="popyt" name="popyt" placeholder="np. 10, 28, 27">-->
         </div>
         <div class="form-group">
-            <label for="popyt">Popyt od odbiorców:</label>
-            <input type="text" class="form-control" id="popyt" name="popyt" placeholder="np. 10, 28, 27">
+            <label for="buyCost-vector">Ceny zakupu:</label>
+            <div class="row" id="buyCost-vector">
+<!--            <input type="text" class="form-control" id="cena_zakupu" name="cena_zakupu" placeholder="np. 10, 12">-->
+        </div>
+        <div class="sellCost-vector">
+            <label for="sellCost-vector">Ceny sprzedaży:</label>
+            <div class="row" id="sellCost-vector">
+<!--            <input type="text" class="form-control" id="cena_sprzedaży" name="cena_sprzedaży"-->
+<!--                   placeholder="np. 30, 25, 30">-->
         </div>
         <div class="form-group">
-            <label for="cena_zakupu">Ceny zakupu:</label>
-            <input type="text" class="form-control" id="cena_zakupu" name="cena_zakupu" placeholder="np. 10, 12">
-        </div>
-        <div class="form-group">
-            <label for="cena_sprzedaży">Ceny sprzedaży:</label>
-            <input type="text" class="form-control" id="cena_sprzedaży" name="cena_sprzedaży"
-                   placeholder="np. 30, 25, 30">
-        </div>
-        <div class="form-group">
-            <label for="koszty_transportu">Macierz kosztów transportu:</label>
+            <label for="sellCost-vector">Macierz kosztów transportu:</label>
             <div class="row" id="matrix-container">
                 <!-- Macierz kosztów transportu zostanie tutaj wygenerowana przez kod JavaScript -->
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Wyślij</button>
+        <button onsubmit="" type="submit" class="btn btn-primary">Wyślij</button>
+
     </form>
 </div>
 
