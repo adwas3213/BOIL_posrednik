@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Formularz</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="script.js"></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -11,7 +14,7 @@
         }
 
         .container {
-            max-width: 500px;
+            max-width: 80%;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
@@ -26,55 +29,48 @@
         h3 {
             margin-top: 20px;
         }
+
     </style>
 </head>
 <body>
 <div class="container">
     <form>
         <div class="form-group">
-            <label for="m">Liczba dostawców (m):</label>
-            <input type="number" class="form-control" id="m" name="m">
+            <label for="dostawcy">Liczba dostawców:</label>
+            <input type="number" class="form-control" id="dostawcy" name="dostawcy" min="1">
         </div>
         <div class="form-group">
-            <label for="n">Liczba odbiorców (n):</label>
-            <input type="number" class="form-control" id="n" name="n">
+            <label for="odbiorcy">Liczba odbiorców:</label>
+            <input type="number" class="form-control" id="odbiorcy" name="odbiorcy" min="1">
         </div>
-        <hr>
-        <h3>Dane dla każdego dostawcy:</h3>
-        <div class="form-row">
-            <div class="col">
-                <label for="ai">Maksymalna ilość towaru:</label>
-                <input type="number" class="form-control" id="ai" name="ai">
-            </div>
-            <div class="col">
-                <label for="kz">Koszt zakupu:</label>
-                <input type="number" class="form-control" id="kz" name="kz">
-            </div>
+        <div class="form-group">
+            <label for="podaż">Podaż od dostawców:</label>
+            <input type="text" class="form-control" id="podaż" name="podaż" placeholder="np. 20, 30">
         </div>
-        <hr>
-        <h3>Dane dla każdego odbiorcy:</h3>
-        <div class="form-row">
-            <div class="col">
-                <label for="bj">Maksymalna ilość towaru:</label>
-                <input type="number" class="form-control" id="bj" name="bj">
-            </div>
-            <div class="col">
-                <label for="cj">Cena sprzedaży:</label>
-                <input type="number" class="form-control" id="cj" name="cj">
-            </div>
+        <div class="form-group">
+            <label for="popyt">Popyt od odbiorców:</label>
+            <input type="text" class="form-control" id="popyt" name="popyt" placeholder="np. 10, 28, 27">
         </div>
-        <hr>
-        <h3>Koszt transportu:</h3>
-        <div class="form-row">
-            <div class="col">
-                <label for="ktij">Koszt transportu:</label>
-                <input type="number" class="form-control" id="ktij" name="ktij">
+        <div class="form-group">
+            <label for="cena_zakupu">Ceny zakupu:</label>
+            <input type="text" class="form-control" id="cena_zakupu" name="cena_zakupu" placeholder="np. 10, 12">
+        </div>
+        <div class="form-group">
+            <label for="cena_sprzedaży">Ceny sprzedaży:</label>
+            <input type="text" class="form-control" id="cena_sprzedaży" name="cena_sprzedaży"
+                   placeholder="np. 30, 25, 30">
+        </div>
+        <div class="form-group">
+            <label for="koszty_transportu">Macierz kosztów transportu:</label>
+            <div class="row" id="matrix-container">
+                <!-- Macierz kosztów transportu zostanie tutaj wygenerowana przez kod JavaScript -->
             </div>
         </div>
-        <br>
         <button type="submit" class="btn btn-primary">Wyślij</button>
     </form>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+
+<script src="script.js"></script>
+
 </body>
 </html>

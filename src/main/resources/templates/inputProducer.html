@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Producent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+    <script src="../static/script.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 0;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="mb-3">
+        <p>Wprowadź dane producenta: <span th:text="${producerCount}"></span>/<span th:text="${totalProducers}"></span>
+        </p>
+    </div>
+    <form th:action="@{/saveProducer}" method="post">
+        <div class="form-group">
+            <label for="name">Nazwa producenta:</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="address">Adres producenta:</label>
+            <input type="text" class="form-control" id="address" name="address">
+        </div>
+        <div class="form-group">
+            <label for="email">Adres e-mail producenta:</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="phone">Numer telefonu producenta:</label>
+            <input type="tel" class="form-control" id="phone" name="phone">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Zapisz</button>
+    </form>
+</div>
+
+</body>
+</html>

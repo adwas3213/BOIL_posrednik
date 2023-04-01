@@ -11,8 +11,5 @@ public class InsertDataController {
         public void insertData() {
             System.out.println("InsertDataController");
         }
-    @GetMapping("/")
-        public String welcomePage() {
-            return "welcomePage.html";
-        }
+
 }
