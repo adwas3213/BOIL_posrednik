@@ -40,7 +40,6 @@ public class InsertDataController {
     }
 
     public static int[][] parseTransportCosts(List<Map.Entry<String, Integer>> transportCost, int suppliers, int receiver) {
-        // tworzymy pustą macierz o rozmiarze 2x2
         int[][] matrix = new int[receiver][suppliers];
         System.out.println(transportCost.size());
         // iterujemy po elementach mapy
