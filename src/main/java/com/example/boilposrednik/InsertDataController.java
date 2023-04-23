@@ -1,5 +1,6 @@
 package com.example.boilposrednik;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,25 +13,27 @@ import java.util.Map;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class InsertDataController {
+    private final SolitionService solitionService;
 
     @PostMapping("/insertData")
-    public String insertData(@RequestParam int suppliers,
-                             @RequestParam int receiver,
-                             @RequestParam("suppliers") List<Integer> podaż,
-                             @RequestParam("receiver") List<Integer> popyt,
-                             @RequestParam("buy") List<String> cena_zakupu,
-                             @RequestParam("sell") List<String> cena_sprzedaży,
+    public String insertData(@RequestParam int supply,
+                             @RequestParam int demand,
+                             @RequestParam("supplyList") List<Integer> supplyList,
+                             @RequestParam("demand") List<Integer> demandList,
+                             @RequestParam("buyCost") List<String> buyCost,
+                             @RequestParam("sellCost") List<String> sellCost,
                              @RequestParam LinkedHashMap<String, Integer> transportCost) {
-        log.info("dostawcy: " + suppliers);
-        log.info("odbiorcy: " + receiver);
-        log.info("podaż: " + podaż);
-        log.info("popyt: " + popyt);
-        log.info("cena_zakupu: " + cena_zakupu);
-        log.info("cena_sprzedaży: " + cena_sprzedaży);
+        log.info("dostawcy: " + supply);
+        log.info("odbiorcy: " + demand);
+        log.info("podaż: " + supplyList);
+        log.info("popyt: " + demandList);
+        log.info("cena_zakupu: " + buyCost);
+        log.info("cena_sprzedaży: " + sellCost);
 
         int[][] test = parseTransportCosts(transportCost.entrySet().stream()
-                .filter(x -> x.getKey().matches("^transportCost_(\\d+);(\\d+)$")).toList(), suppliers, receiver);
+                .filter(x -> x.getKey().matches("^transportCost_(\\d+);(\\d+)$")).toList(), supply, demand);
         Arrays.stream(test).forEach(x -> System.out.println(Arrays.toString(x)));
         log.info("koszty_transportu: " + transportCost.keySet());
 

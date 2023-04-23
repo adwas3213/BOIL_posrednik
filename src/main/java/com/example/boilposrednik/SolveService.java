@@ -14,8 +14,8 @@ public class SolveService {
     private ArrayList<Integer> demand = new ArrayList<>(List.of(10, 28, 27));
     private ArrayList<Integer> unitSalePrice = new ArrayList<>(List.of(30, 25, 30));
     private ArrayList<ArrayList<Integer>> transportCost = new ArrayList<>(List.of(
-            new ArrayList<>(List.of(4, 5, 6)),
-            new ArrayList<>(List.of(7, 6, 4))
+            new ArrayList<>(List.of(8, 14, 17)),
+            new ArrayList<>(List.of(12, 9, 19))
     ));
 
     public static void main(String[] args) {

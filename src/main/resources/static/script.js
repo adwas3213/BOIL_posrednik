@@ -22,7 +22,7 @@ function utworzMacierz(dostawcy, odbiorcy) {
 
 // nasłuchujemy zmiany wartości w polach liczby dostawców i odbiorców
 $('#suppliers').on('input', function() {
-    const dostawcy = parseInt(this.value);
+    const dostawcy = parseInt($('#receiver').val());
     const odbiorcy = parseInt($('#suppliers').val());
     utworzMacierz(dostawcy, odbiorcy);
     utworzMacierzDostawcow(dostawcy);
@@ -35,7 +35,7 @@ $('#suppliers').on('input', function() {
 
 $('#receiver').on('input', function() {
     const dostawcy = parseInt($('#receiver').val());
-    const odbiorcy = parseInt(this.value);
+    const odbiorcy = parseInt($('#suppliers').val());
     utworzMacierz(dostawcy, odbiorcy);
     utworzMacierzDostawcow(dostawcy);
     createReciverVector(odbiorcy);

@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestPart;
 public class MasterGetController {
     @GetMapping("/")
     public String welcomePage() {
-        return "welcomePage.html";
+        return "welcomePage";
     }
     @GetMapping("/wprowadzanieProducenta")
     public String inputProducerById(@RequestParam String id, @ModelAttribute Model model) {
         model.addAttribute("id", id);
-        return "inputProducer.html";
+        return "inputProducer";
     }
 }
