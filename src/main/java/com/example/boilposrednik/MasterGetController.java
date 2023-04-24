@@ -16,6 +16,6 @@ public class MasterGetController {
     @GetMapping("/wprowadzanieProducenta")
     public String inputProducerById(@RequestParam String id, @ModelAttribute Model model) {
         model.addAttribute("id", id);
-        return "inputProducer";
+        return "results";
     }
 }

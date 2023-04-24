@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Producer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+    <script src="../static/script.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 0;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div th:if="${notBalanced}" class="alert alert-danger" role="alert">
+        Problem nie jest zbalansowany ( popyt != podaż ) więc dodaliśmy fikcyjnego dostawce i fikcyjnego odbiorcę na końcu tabeli.
+    </div>
+    <div th:unless="${notBalanced}" class="alert alert-success" role="alert">
+        Problem jest zbalansowany więc każde pole odpowiada jednemu dostawcy i jednemu odbiorcy.( połączeniu na ich trasie )
+    </div>
+
+    <h3>Zyski jednoskowe pośrednika</h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th th:each="col, colStat : ${profit[0]}" scope="col" th:text="${'Odbiorca ' + (colStat.index + 1)}">Demand 1</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row, rowStat : ${profit}">
+            <th scope="row" th:text="${'Dostawca ' + (rowStat.index + 1)}">Supply 1</th>
+            <td th:each="cell : ${row}" th:text="${cell}">0</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="container">
+        <h3>Wyniki dla zooptymalizowanego przewozu pośrednika maksymalizującego zysk</h3>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th th:each="col, colStat : ${result[0]}" scope="col" th:text="${'Odbiorca ' + (colStat.index + 1)}">Demand 1</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row, rowStat : ${result}">
+                <th scope="row" th:text="${'Dostawca ' + (rowStat.index + 1)}">Supply 1</th>
+                <td th:each="cell : ${row}" th:text="${cell}">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h3>Podsumowanie</h3>
+        <table>
+            <tr>
+                <th>Zysk</th>
+                <th>Koszt transportu</th>
+                <th>Koszt zakupu</th>
+                <th>Przychód</th>
+            </tr>
+            <tr>
+                <td th:text="${totalProfit}"></td>
+                <td th:text="${totalTransportCost}"></td>
+                <td th:text="${totalPurchaseCost}"></td>
+                <td th:text="${totalRevenue}"></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

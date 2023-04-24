@@ -48,7 +48,7 @@ public class InsertDataController {
                 .toList();
         solitionService.solve(model,supplyList, demandList, buyCost.stream().map(Integer::parseInt).toList(), sellCost.stream().map(Integer::parseInt).toList(), transportCostList);
         System.out.println("InsertDataController");
-        return "inputProducer";
+        return "results";
     }
 
     public static int[][] parseTransportCosts(List<Map.Entry<String, Integer>> transportCost, int suppliers, int receiver) {
