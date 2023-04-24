@@ -11,7 +11,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 60%;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
@@ -37,6 +37,7 @@
         Problem jest zbalansowany więc każde pole odpowiada jednemu dostawcy i jednemu odbiorcy.( połączeniu na ich trasie )
     </div>
 
+
     <h3>Zyski jednoskowe pośrednika</h3>
     <table class="table table-bordered">
         <thead>
@@ -53,6 +54,49 @@
         </tbody>
     </table>
 
+
+    <div class="container">
+        <h1>Operacje</h1>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>k</th>
+                <th>l</th>
+                <th>Supply</th>
+                <th>Demand</th>
+                <th>Result</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="record, index : ${records}">
+                <td th:text="${index}"></td>
+                <td th:text="${record.k}"></td>
+                <td th:text="${record.l}"></td>
+                <td>
+                    <table class="table table-bordered table-sm">
+                        <tr th:each="supplyItem : ${record.supply}">
+                            <td th:text="${supplyItem}"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="table table-bordered table-sm">
+                        <tr th:each="demandItem : ${record.demand}">
+                            <td th:text="${demandItem}"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="table table-bordered table-sm">
+                        <tr th:each="resultRow : ${record.result}">
+                            <td th:each="resultItem : ${resultRow}" th:text="${resultItem}"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="container">
         <h3>Wyniki dla zooptymalizowanego przewozu pośrednika maksymalizującego zysk</h3>
         <table class="table table-bordered">

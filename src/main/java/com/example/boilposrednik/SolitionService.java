@@ -19,12 +19,26 @@ public class SolitionService {
 //            new ArrayList<>(List.of(8, 14, 17)),
 //            new ArrayList<>(List.of(12, 9, 19))
 //    ));
-    private static double[][] result;
+    private static int[][] result;
+    private static List<SolutionRecord> solutionRecords= new ArrayList<>();
 
     public static void main(String[] args) {
         SolitionService solveService = new SolitionService();
 //        solveService.solve();
     }
+    // Metoda do tworzenia głębokiej kopii macierzy dwuwymiarowej
+    public static int[][] deepCopy(int[][] original) {
+        if (original == null) {
+            return null;
+        }
+
+        final int[][] result = new int[original.length][];
+        for (int i = 0; i < original.length; i++) {
+            result[i] = Arrays.copyOf(original[i], original[i].length);
+        }
+        return result;
+    }
+
 
     public static int findLargestElement(List<List<Integer>> matrix, List<Integer> supply, List<Integer> demand) {
         int largestElement = Integer.MIN_VALUE;
@@ -59,11 +73,19 @@ public class SolitionService {
             demand.set(l, 0);
         }
 
+        SolutionRecord record = new SolutionRecord();
+        record.setK(k);
+        record.setL(l);
+        record.setSupply(new ArrayList<>(supply));
+        record.setDemand(new ArrayList<>(demand));
+        record.setResult(deepCopy(result));
+        solutionRecords.add(record);
+
 
         return largestElement;
     }
 
-    public double calculateTotalProfit(List<Integer> buyCost, List<Integer> sellCost, List<List<Integer>> transportCostList, List<List<Double>> resultList) {
+    public double calculateTotalProfit(List<Integer> buyCost, List<Integer> sellCost, List<List<Integer>> transportCostList, List<List<Integer>> resultList) {
         double totalProfit = 0;
         for (int i = 0; i < resultList.size() && i < buyCost.size(); i++) {
             for (int j = 0; j < resultList.get(i).size() && j < sellCost.size(); j++) {
@@ -75,7 +97,7 @@ public class SolitionService {
     }
 
 
-    public double calculateTotalTransportCost(List<List<Integer>> transportCostList, List<List<Double>> resultList) {
+    public double calculateTotalTransportCost(List<List<Integer>> transportCostList, List<List<Integer>> resultList) {
         double totalTransportCost = 0;
         for (int i = 0; i < resultList.size() && i < transportCostList.size(); i++) {
             for (int j = 0; j < resultList.get(i).size() && j < transportCostList.get(i).size(); j++) {
@@ -85,7 +107,7 @@ public class SolitionService {
         return totalTransportCost;
     }
 
-    public double calculateTotalPurchaseCost(List<Integer> buyCost, List<List<Double>> resultList) {
+    public double calculateTotalPurchaseCost(List<Integer> buyCost, List<List<Integer>> resultList) {
         double totalPurchaseCost = 0;
         for (int i = 0; i < resultList.size() && i < buyCost.size(); i++) {
             for (int j = 0; j < resultList.get(i).size(); j++) {
@@ -95,7 +117,7 @@ public class SolitionService {
         return totalPurchaseCost;
     }
 
-    public double calculateTotalRevenue(List<Integer> sellCost, List<List<Double>> resultList) {
+    public double calculateTotalRevenue(List<Integer> sellCost, List<List<Integer>> resultList) {
         double totalRevenue = 0;
         for (int i = 0; i < resultList.size(); i++) {
             for (int j = 0; j < resultList.get(i).size() && j < sellCost.size(); j++) {
@@ -124,7 +146,7 @@ public class SolitionService {
             log.info("-------------------");
 
             if (notBalanced) {
-                result = new double[transportCostList.size() + 1][transportCostList.get(0).size() + 1];
+                result = new int[transportCostList.size() + 1][transportCostList.get(0).size() + 1];
                 log.info("Zagadnienie niezbalansowane");
                 for (int i = 0; i < profit.size(); i++) {
                     profit.get(i).add(0);
@@ -141,7 +163,7 @@ public class SolitionService {
                 profit.forEach(x -> log.info("{}", x));
 
             } else {
-                result = new double[transportCostList.size()][transportCostList.get(0).size()];
+                result = new int[transportCostList.size()][transportCostList.get(0).size()];
                 log.info("Zagadnienie zbalansowane");
             }
 
@@ -149,8 +171,8 @@ public class SolitionService {
                 findLargestElement(profit, supplyList, demandList);
 
             } while (supplyList.stream().flatMapToInt(IntStream::of).sum() != 0 && demandList.stream().flatMapToInt(IntStream::of).sum() != 0);
-            for (double[] doubles : result) {
-                log.info(Arrays.toString(doubles));
+            for (int[] ints : result) {
+                log.info(Arrays.toString(ints));
             }
             //618 565278
 //        profit.forEach(System.out::println);
@@ -177,7 +199,7 @@ public class SolitionService {
             model.addAttribute("totalTransportCost", totalTransportCost);
             model.addAttribute("totalPurchaseCost", totalPurchaseCost);
             model.addAttribute("totalRevenue", totalRevenue);
-
+            model.addAttribute("records", solutionRecords);
         }
 
     }
