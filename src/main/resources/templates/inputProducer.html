@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Producent</title>
+    <title>Producer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
     <script src="../static/script.js"></script>
     <style>
@@ -30,31 +30,21 @@
 </head>
 <body>
 <div class="container">
-    <div class="mb-3">
-        <p>Wprowadź dane producenta: <span th:text="${producerCount}"></span>/<span th:text="${totalProducers}"></span>
-        </p>
-    </div>
-    <form th:action="@{/saveProducer}" method="post">
-        <div class="form-group">
-            <label for="name">Nazwa producenta:</label>
-            <input type="text" class="form-control" id="name" name="name">
-        </div>
-        <div class="form-group">
-            <label for="address">Adres producenta:</label>
-            <input type="text" class="form-control" id="address" name="address">
-        </div>
-        <div class="form-group">
-            <label for="email">Adres e-mail producenta:</label>
-            <input type="email" class="form-control" id="email" name="email">
-        </div>
-        <div class="form-group">
-            <label for="phone">Numer telefonu producenta:</label>
-            <input type="tel" class="form-control" id="phone" name="phone">
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Zapisz</button>
-    </form>
+    <h3>Zyski jednoskowe pośrednika</h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th th:each="col, colStat : ${profit[0]}" scope="col" th:text="${'Odbiorca ' + (colStat.index + 1)}">Demand 1</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row, rowStat : ${profit}">
+            <th scope="row" th:text="${'Dostawca ' + (rowStat.index + 1)}">Supply 1</th>
+            <td th:each="cell : ${row}" th:text="${cell}">0</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-
 </body>
 </html>

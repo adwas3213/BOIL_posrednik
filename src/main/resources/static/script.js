@@ -22,25 +22,25 @@ function utworzMacierz(dostawcy, odbiorcy) {
 
 // nasłuchujemy zmiany wartości w polach liczby dostawców i odbiorców
 $('#suppliers').on('input', function() {
-    const dostawcy = parseInt($('#receiver').val());
-    const odbiorcy = parseInt($('#suppliers').val());
+    const dostawcy = parseInt($('#suppliers').val());
+    const odbiorcy = parseInt($('#receiver').val());
     utworzMacierz(dostawcy, odbiorcy);
     utworzMacierzDostawcow(dostawcy);
     createReciverVector(odbiorcy);
-    createBuyCostVector(odbiorcy);
-    createSellCostVector(dostawcy);
+    createBuyCostVector(dostawcy);
+    createSellCostVector(odbiorcy);
 
 });
 
 
 $('#receiver').on('input', function() {
-    const dostawcy = parseInt($('#receiver').val());
-    const odbiorcy = parseInt($('#suppliers').val());
+    const dostawcy = parseInt($('#suppliers').val());
+    const odbiorcy = parseInt($('#receiver').val());
     utworzMacierz(dostawcy, odbiorcy);
     utworzMacierzDostawcow(dostawcy);
     createReciverVector(odbiorcy);
-    createBuyCostVector(odbiorcy);
-    createSellCostVector(dostawcy);
+    createBuyCostVector(dostawcy);
+    createSellCostVector(odbiorcy);
 });
 
 function utworzMacierzDostawcow(dostawcy) {
@@ -49,7 +49,7 @@ function utworzMacierzDostawcow(dostawcy) {
     for (let i = 1; i <= dostawcy; i++) {
         dostawcyHtml += `<div class="form-group">
             <label for="dostawca_${i}">Dostawca ${i}:</label>
-            <input type="number" class="form-control" id="dostawca_${i}" name="suplier_${i}">
+            <input type="number" class="form-control" id="dostawca_${i}" name="supplyList">
         </div>`;
     }
     macierzDostawcow += `<div class="row">${dostawcyHtml}</div>`;
@@ -63,7 +63,7 @@ function createReciverVector(recivers) {
     for (let i = 1; i <= recivers; i++) {
         reciversHtml += `<div class="form-group">
             <label for="receiver_${i}">Odbiorca ${i}:</label>
-            <input type="number" class="form-control" id="receiver_${i}" name="receiver_${i}">
+            <input type="number" class="form-control" id="receiver_${i}" name="demandList">
         </div>`;
     }
     matrixRecivers += `<div class="row">${reciversHtml}</div>`;
@@ -77,7 +77,7 @@ function createBuyCostVector(count) {
     for (let i = 1; i <= count; i++) {
         buyCostHtml += `<div class="form-group">
             <label for="buyCost_${i}">Cena kupna ${i}:</label>
-            <input type="number" class="form-control" id="buyCost_${i}" name="buy">
+            <input type="number" class="form-control" id="buyCost_${i}" name="buyCost">
         </div>`;
     }
     vectorBuyCost += `<div class="row">${buyCostHtml}</div>`;
@@ -91,7 +91,7 @@ function createSellCostVector(count) {
     for (let i = 1; i <= count; i++) {
         sellCostHtml += `<div class="form-group">
             <label for="sellCost_${i}">Koszt sprzedaży ${i}:</label>
-            <input type="number" class="form-control" id="sellCost_${i}" name="sell">
+            <input type="number" class="form-control" id="sellCost_${i}" name="sellCost">
         </div>`;
     }
     sellCostVector += `<div class="row">${sellCostHtml}</div>`;

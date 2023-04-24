@@ -2,6 +2,7 @@ package com.example.boilposrednik;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -9,19 +10,19 @@ import java.util.stream.IntStream;
 @Service
 @Slf4j
 public class SolitionService {
-    private ArrayList<Integer> supply = new ArrayList<>(List.of(20, 30));
-    private ArrayList<Integer> unitPurchaseCost = new ArrayList<>(List.of(10, 12));
-    private ArrayList<Integer> demand = new ArrayList<>(List.of(10, 28, 27));
-    private ArrayList<Integer> unitSalePrice = new ArrayList<>(List.of(30, 25, 30));
-    private ArrayList<ArrayList<Integer>> transportCost = new ArrayList<>(List.of(
-            new ArrayList<>(List.of(8, 14, 17)),
-            new ArrayList<>(List.of(12, 9, 19))
-    ));
-    private static double[][] result = new double[3][4];
+//    private ArrayList<Integer> supply = new ArrayList<>(List.of(20, 30));
+//    private ArrayList<Integer> unitPurchaseCost = new ArrayList<>(List.of(10, 12));
+//    private ArrayList<Integer> demand = new ArrayList<>(List.of(10, 28, 27));
+//    private ArrayList<Integer> unitSalePrice = new ArrayList<>(List.of(30, 25, 30));
+//    private ArrayList<ArrayList<Integer>> transportCost = new ArrayList<>(List.of(
+//            new ArrayList<>(List.of(8, 14, 17)),
+//            new ArrayList<>(List.of(12, 9, 19))
+//    ));
+    private static double[][] result ;
 
     public static void main(String[] args) {
         SolitionService solveService = new SolitionService();
-        solveService.solve();
+//        solveService.solve();
     }
 
     public static int findLargestElement(List<List<Integer>> matrix, List<Integer> supply, List<Integer> demand) {
@@ -61,66 +62,118 @@ public class SolitionService {
         return largestElement;
     }
 
-    public void solve() {
-        int unitProfit = unitSalePrice.get(0) - (unitPurchaseCost.get(0) + transportCost.get(0).get(0));
-        log.info("{}",unitProfit);
+//    public void solve() {
+//        int unitProfit = unitSalePrice.get(0) - (unitPurchaseCost.get(0) + transportCost.get(0).get(0));
+//        log.info("{}",unitProfit);
+//
+//        List<List<Integer>> profit = new ArrayList<>();
+//        for (int i = 0; i < supply.size(); i++) {
+//            List<Integer> row = new ArrayList<>();
+//            for (int j = 0; j < demand.size(); j++) {
+//                int profitValue = unitSalePrice.get(j) - unitPurchaseCost.get(i) - transportCost.get(i).get(j);
+//                row.add(profitValue);
+//            }
+//            profit.add(row);
+//        }
+//        profit.forEach(x->log.info("{}",x));
+//        log.info("-------------------");
+//
+//        if (supply.stream().flatMapToInt(IntStream::of).sum()!=demand.stream().flatMapToInt(IntStream::of).sum())
+//        {
+//            result = new double[3][4];
+//            log.info("Zagadnienie niezbalansowane");
+//            for (int i = 0; i < profit.size(); i++) {
+//                profit.get(i).add(0);
+//            }
+////            var notBalancedSupply=
+//            profit.add(new ArrayList<>(Collections.nCopies(demand.size()+1, 0)));
+//            supply.add(demand.stream().flatMapToInt(IntStream::of).sum());
+//            demand.add(supply.stream().flatMapToInt(IntStream::of).sum()-supply.get(supply.size()-1));
+//            log.info("supply");
+//            log.info("{}",supply);
+//            log.info("demand");
+//            log.info("{}",demand);
+//            log.info("profit");
+//            profit.forEach(x->log.info("{}",x));
+//
+//        }
+//        else
+//        {
+//            log.info("Zagadnienie zbalansowane");
+//        }
+//
+//        do {
+//            findLargestElement(profit, supply, demand);
+//
+//        } while (supply.stream().flatMapToInt(IntStream::of).sum() != 0 && demand.stream().flatMapToInt(IntStream::of).sum() != 0);
+//        for (double[] doubles : result) {
+//            log.info(Arrays.toString(doubles));
+//        }
+////        profit.forEach(System.out::println);
+//        log.info("supply");
+//        log.info("{}",supply);
+//        log.info("demand");
+//        log.info("{}",demand);
+//
+//
+//    }
 
-        List<List<Integer>> profit = new ArrayList<>();
-        for (int i = 0; i < supply.size(); i++) {
-            List<Integer> row = new ArrayList<>();
-            for (int j = 0; j < demand.size(); j++) {
-                int profitValue = unitSalePrice.get(j) - unitPurchaseCost.get(i) - transportCost.get(i).get(j);
-                row.add(profitValue);
-            }
-            profit.add(row);
-        }
-        profit.forEach(x->log.info("{}",x));
-        log.info("-------------------");
-
-        if (supply.stream().flatMapToInt(IntStream::of).sum()!=demand.stream().flatMapToInt(IntStream::of).sum())
+    public void solve(Model model, List<Integer> supplyList, List<Integer> demandList, List<Integer> buyCost, List<Integer> sellCost, List<List<Integer>> transportCostList) {
         {
-            result = new double[3][4];
-            log.info("Zagadnienie niezbalansowane");
-            for (int i = 0; i < profit.size(); i++) {
-                profit.get(i).add(0);
+
+            List<List<Integer>> profit = new ArrayList<>();
+            for (int i = 0; i < supplyList.size(); i++) {
+                List<Integer> row = new ArrayList<>();
+                for (int j = 0; j < demandList.size(); j++) {
+                    int profitValue = sellCost.get(j) - buyCost.get(i) - transportCostList.get(i).get(j);
+                    row.add(profitValue);
+                }
+                profit.add(row);
             }
-//            var notBalancedSupply=
-            profit.add(new ArrayList<>(Collections.nCopies(demand.size()+1, 0)));
-            supply.add(demand.stream().flatMapToInt(IntStream::of).sum());
-            demand.add(supply.stream().flatMapToInt(IntStream::of).sum()-supply.get(supply.size()-1));
-            log.info("supply");
-            log.info("{}",supply);
-            log.info("demand");
-            log.info("{}",demand);
-            log.info("profit");
+            model.addAttribute("profit",profit);
+
             profit.forEach(x->log.info("{}",x));
+            log.info("-------------------");
 
-        }
-        else
-        {
-            log.info("Zagadnienie zbalansowane");
-        }
+            if (supplyList.stream().flatMapToInt(IntStream::of).sum()!=demandList.stream().flatMapToInt(IntStream::of).sum())
+            {
+                result = new double[transportCostList.size()+1][transportCostList.get(0).size()+1];
+                log.info("Zagadnienie niezbalansowane");
+                for (int i = 0; i < profit.size(); i++) {
+                    profit.get(i).add(0);
+                }
+//            var notBalancedSupply=
+                profit.add(new ArrayList<>(Collections.nCopies(demandList.size()+1, 0)));
+                supplyList.add(demandList.stream().flatMapToInt(IntStream::of).sum());
+                demandList.add(supplyList.stream().flatMapToInt(IntStream::of).sum()-supplyList.get(supplyList.size()-1));
+                log.info("supplyList");
+                log.info("{}",supplyList);
+                log.info("demandList");
+                log.info("{}",demandList);
+                log.info("profit");
+                profit.forEach(x->log.info("{}",x));
 
-        do {
-            findLargestElement(profit, supply, demand);
-//            findLargestElement(profit, supply, demand);
-//            findLargestElement(profit, supply, demand);
-//            findLargestElement(profit, supply, demand);
-//            findLargestElement(profit, supply, demand);
-//            findLargestElement(profit, supply, demand);
-//            findLargestElement(profit, supply, demand);
-//            findLargestElement(profit, supply, demand);
-//            findLargestElement(profit, supply, demand);
-        } while (supply.stream().flatMapToInt(IntStream::of).sum() != 0 && demand.stream().flatMapToInt(IntStream::of).sum() != 0);
-        for (double[] doubles : result) {
-            log.info(Arrays.toString(doubles));
-        }
+            }
+            else
+            {
+                result = new double[transportCostList.size()][transportCostList.get(0).size()];
+                log.info("Zagadnienie zbalansowane");
+            }
+
+            do {
+                findLargestElement(profit, supplyList, demandList);
+
+            } while (supplyList.stream().flatMapToInt(IntStream::of).sum() != 0 && demandList.stream().flatMapToInt(IntStream::of).sum() != 0);
+            for (double[] doubles : result) {
+                log.info(Arrays.toString(doubles));
+            }
 //        profit.forEach(System.out::println);
-        log.info("supply");
-        log.info("{}",supply);
-        log.info("demand");
-        log.info("{}",demand);
+            log.info("supplyList");
+            log.info("{}",supplyList);
+            log.info("demandList");
+            log.info("{}",demandList);
 
 
+        }
     }
 }
